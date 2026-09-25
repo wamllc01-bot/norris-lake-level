@@ -1,10 +1,31 @@
-{
-  "lake": "Norris",
-  "elevation": 1010.27,
-  "date": "2026-09-24",
-  "observed": "Thursday, September 24, 2026 12:00:00 PM",
-  "full_pool": 1020.0,
-  "below_full_pool": 9.73,
-  "source": "https://www.norrislakenews.com/Level.asp",
-  "updated": "2026-09-24T17:26:45+00:00"
-}
+name: Update Norris lake level
+
+on:
+  schedule:
+    - cron: "15 12 * * *"   # daily, 8:15 AM Eastern (7:15 during DST)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install headless browser
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Fetch elevation and write JSON
+        run: python update_level.py
+      - name: Commit if changed
+        run: |
+          git config user.name "lake-level-bot"
+          git config user.email "bot@lakenorrischalets.com"
+          git add norris-level.json
+          git diff --cached --quiet || git commit -m "Norris level $(date -u +%F)"
+          git push
