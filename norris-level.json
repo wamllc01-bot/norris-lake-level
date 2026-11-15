@@ -1,10 +1,10 @@
 {
   "lake": "Norris",
-  "elevation": 1001.38,
-  "date": "2026-11-14",
-  "observed": "Saturday, November 14, 2026 11:00:00 AM",
+  "elevation": 1001.37,
+  "date": "2026-11-15",
+  "observed": "Sunday, November 15, 2026 12:00:00 PM",
   "full_pool": 1020.0,
-  "below_full_pool": 18.62,
+  "below_full_pool": 18.63,
   "source": "norrislakenews.com",
-  "updated": "2026-11-14T18:09:57+00:00"
+  "updated": "2026-11-15T18:54:20+00:00"
 }
